@@ -1,3 +1,6 @@
+package practice;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ArrayChange {
@@ -63,6 +66,36 @@ public class ArrayChange {
         }
         System.out.println();
         System.out.println("最优解为" + step + "步");
+    }
+
+
+    public ArrayList<ArrayList<Integer>> getSubsets(int[] A, int n) {
+        // write code here
+        ArrayList<ArrayList<Integer>> arrayList = new ArrayList<ArrayList<Integer>>();
+        if(n==0) {
+            return arrayList;
+        }
+        if(n==1) {
+            ArrayList<Integer> aList = new ArrayList<Integer>(A[0]);
+            arrayList.add(aList);
+            return arrayList;
+        }
+        for(int i = 0; i < n; i++) {
+            ArrayList<Integer> list = new ArrayList<Integer>();
+            for(int j = i+1; j<n; j++) {
+                list.add(i);
+                for(int k = j; k < n; k++) {
+                    list.add(A[k]);
+                    list.set(i, list.get(j));
+                    list.set(j, 1);
+                    ArrayList<Integer> tempList = new ArrayList<Integer>();
+                    tempList = list;
+                    arrayList.add(tempList);
+                }
+                list.clear();
+            }
+        }
+        return arrayList;
     }
 
 }
